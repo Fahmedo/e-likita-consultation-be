@@ -1,0 +1,242 @@
+{
+  "info": {
+    "name": "e-Likita Hospital Consultation Assistant API",
+    "description": "Complete API collection for the e-Likita healthcare consultation system",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3001/api/v1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/../health",
+          "host": ["{{baseUrl}}"],
+          "path": ["..", "health"]
+        }
+      }
+    },
+    {
+      "name": "Patients",
+      "item": [
+        {
+          "name": "Create Patient",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Smith\",\n  \"dateOfBirth\": \"1990-05-15\",\n  \"gender\": \"female\",\n  \"phoneNumber\": \"+1-555-0124\",\n  \"email\": \"jane.smith@email.com\",\n  \"address\": \"456 Oak Avenue, Somewhere, ST 67890\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/patients",
+              "host": ["{{baseUrl}}"],
+              "path": ["patients"]
+            }
+          }
+        },
+        {
+          "name": "Get All Patients",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patients",
+              "host": ["{{baseUrl}}"],
+              "path": ["patients"]
+            }
+          }
+        },
+        {
+          "name": "Get Patient by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patients/{{patientId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["patients", "{{patientId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Consultations",
+      "item": [
+        {
+          "name": "Start Consultation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patientId\": \"{{patientId}}\",\n  \"chiefComplaint\": \"Chest pain and shortness of breath\",\n  \"painScale\": 7\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/consultations",
+              "host": ["{{baseUrl}}"],
+              "path": ["consultations"]
+            }
+          }
+        },
+        {
+          "name": "Get Consultation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/consultations/{{consultationId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["consultations", "{{consultationId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Consultation Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"symptoms_assessed\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/consultations/{{consultationId}}/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["consultations", "{{consultationId}}", "status"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Symptoms",
+      "item": [
+        {
+          "name": "Get All Symptoms",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/symptoms",
+              "host": ["{{baseUrl}}"],
+              "path": ["symptoms"]
+            }
+          }
+        },
+        {
+          "name": "Create Symptom Assessment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"consultationId\": \"{{consultationId}}\",\n  \"symptomName\": \"chest pain\",\n  \"severity\": 8,\n  \"duration\": 2,\n  \"durationUnit\": \"hours\",\n  \"description\": \"Sharp pain in the center of chest\",\n  \"location\": {\n    \"bodyPart\": \"chest\",\n    \"side\": \"center\",\n    \"specific\": \"center of chest\"\n  },\n  \"isChiefComplaint\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/symptoms/assessments",
+              "host": ["{{baseUrl}}"],
+              "path": ["symptoms", "assessments"]
+            }
+          }
+        },
+        {
+          "name": "Get Consultation Symptoms",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/symptoms/assessments/consultation/{{consultationId}}",
+              "host": ["{{baseUrl}}"],
+              "path": [
+                "symptoms",
+                "assessments",
+                "consultation",
+                "{{consultationId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Recommendations",
+      "item": [
+        {
+          "name": "Generate Recommendations",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"consultationId\": \"{{consultationId}}\",\n  \"urgencyLevel\": \"high\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/recommendations/generate",
+              "host": ["{{baseUrl}}"],
+              "path": ["recommendations", "generate"]
+            }
+          }
+        },
+        {
+          "name": "Get Consultation Recommendations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/recommendations/consultation/{{consultationId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["recommendations", "consultation", "{{consultationId}}"]
+            }
+          }
+        },
+        {
+          "name": "Seed Default Templates",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/recommendations/templates/seed",
+              "host": ["{{baseUrl}}"],
+              "path": ["recommendations", "templates", "seed"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
