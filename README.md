@@ -141,6 +141,6 @@ Just ensure environment variables are properly set in the deployment platform.
 ## 👨‍💻 Author
 
 **Faruq Ahmed**
-🔗 [GitHub](https://github.com/your-username)
+🔗 [GitHub](https://github.com/fahmedo)
 
 ---
